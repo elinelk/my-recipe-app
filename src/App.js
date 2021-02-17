@@ -1,7 +1,6 @@
 import logo from './logo.svg';
 import styled from 'styled-components';
 import React, {useEffect, useState } from 'react';
-import './App.css';
 import Recipe from './Recipe'
 
 function App() {
@@ -28,14 +27,16 @@ function App() {
   };
 
   const getSearch = e =>{
-
+    e.preventDefault();
+    setQuery(search);
+    setSearch("");
   };
 
   const [counter, setCounter] = useState(0);
 
   useEffect(() => {
     getRecipes();
-  });
+  }, [query]);
   return (
     <MyApp>
       <SearchForm onSubmit={getSearch}>
@@ -50,6 +51,7 @@ function App() {
           title ={recipe.recipe.label}
           calories = {recipe.recipe.calories}
           image = {recipe.recipe.image}
+          ingredients ={recipe.recipe.ingredients}
         />
       ))
       };
@@ -63,14 +65,22 @@ const H1 = styled.h1 `
 `;
 
 const SearchForm = styled.form`
+  min-height: 10vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 const SearchBar = styled.input`
+  width: 50%;
+  border: none;
+  padding: 10px;
 `;
 
 const SearchButton = styled.button`
 `;
 
 const MyApp = styled.div`
+  background-image: linear-gradient(to top, #fbc2eb 0%, #a6c1ee 100%);
 `;
 
